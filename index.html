@@ -312,6 +312,8 @@ p:last-child{margin-bottom:0}
   /* если файла нет — alt-текст виден в рамке */
   min-width:120px;font-size:14px;color:var(--ink-soft);
 }
+/* белый логотип ПУТП — на тёмной плашке */
+.support-logo img.logo-on-dark{box-sizing:content-box;background:var(--green-900);padding:14px 22px;min-width:0}
 .support-logo img.is-missing{
   width:240px;height:112px;padding:12px;border:1px dashed rgba(42,38,32,.45);
   display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:1.35;
@@ -544,11 +546,11 @@ p:last-child{margin-bottom:0}
         <p class="eyebrow"><b>IV</b> <span id="support-title">Поддержка проекта</span></p>
         <div class="support-logos">
           <figure class="support-logo">
-            <img src="assets/fasie-logo.png" alt="Логотип Фонда содействия инновациям">
+            <img src="assets/fasie-logo.svg" alt="Логотип Фонда содействия инновациям">
             <figcaption>Фонд содействия инновациям</figcaption>
           </figure>
           <figure class="support-logo">
-            <img src="assets/putp-logo.png" alt="Логотип мероприятия «Платформа университетского технологического предпринимательства»">
+            <img class="logo-on-dark" src="assets/putp-logo.svg" alt="Логотип мероприятия «Платформа университетского технологического предпринимательства»">
             <figcaption>Платформа университетского технологического предпринимательства</figcaption>
           </figure>
         </div>
