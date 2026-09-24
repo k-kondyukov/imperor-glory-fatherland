@@ -63,7 +63,7 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 h1,h2,h3{margin:0;font-family:var(--f-display);font-weight:600;line-height:1.1}
 p{margin:0 0 1em}
@@ -169,6 +169,24 @@ p:last-child{margin-bottom:0}
 .section-title{font-size:clamp(38px,5.5vw,64px);margin-bottom:28px;color:var(--green-900)}
 .rule{height:0;border:0;border-top:1px solid var(--ink);opacity:.25;margin:0}
 
+/* ---------- Игровой процесс ---------- */
+.gameplay{background:var(--green-950);color:var(--cream);border-top:1px solid rgba(201,180,138,.2)}
+.gameplay .eyebrow{color:var(--sand)}
+.gameplay .section-title{color:var(--cream)}
+.gp-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,48px) clamp(16px,2.5vw,32px)}
+.gp-item{margin:0;display:flex;flex-direction:column}
+.gp-item.lead{grid-column:1 / -1;width:100%;max-width:880px;justify-self:center}
+.gp-cap{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
+.gp-cap b{font-family:var(--f-display);font-size:clamp(24px,2.6vw,30px);font-weight:600;color:var(--cream);white-space:nowrap}
+.gp-cap span{font-size:16px;color:rgba(241,232,211,.75);line-height:1.45}
+.gp-item.lead .gp-cap b{font-size:clamp(28px,3.4vw,38px)}
+.gp-frame{border:1px solid rgba(201,180,138,.35);background:var(--green-800);aspect-ratio:16/9;overflow:hidden}
+.gp-frame img{width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){
+  .gp-grid{grid-template-columns:1fr}
+  .gp-cap{flex-direction:column;gap:2px}
+}
+
 /* ---------- Об игре ---------- */
 .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:start}
 .about-text p{font-size:19px}
@@ -192,7 +210,7 @@ p:last-child{margin-bottom:0}
   margin:0;position:relative;background:var(--green-800);
   border:1px solid rgba(42,38,32,.4);overflow:hidden;
 }
-.commander img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;background:linear-gradient(180deg,#6f7a5c,#3c4834)}
+.commander img{width:100%;height:auto;aspect-ratio:900/1084;object-fit:contain;object-position:center bottom;background:linear-gradient(180deg,#6f7a5c,#3c4834)}
 .commander figcaption{
   padding:14px 16px 16px;color:var(--cream);border-top:2px solid var(--red);
 }
@@ -351,7 +369,6 @@ p:last-child{margin-bottom:0}
   .facts{grid-template-columns:1fr}
   .commander-row{grid-template-columns:1fr 1fr}
   .commander:first-child{grid-column:span 2}
-  .commander:first-child img{aspect-ratio:1/1}
   .commander strong{font-size:21px}
   .cards{grid-template-columns:1fr}
   .card,.card:nth-child(4),.card:nth-child(5){grid-column:span 1}
@@ -382,6 +399,7 @@ p:last-child{margin-bottom:0}
     </a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav"><span></span></button>
     <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="#gameplay">Геймплей</a>
       <a href="#about">Об игре</a>
       <a href="#features">Особенности</a>
       <a href="#gallery">Галерея</a>
@@ -405,10 +423,40 @@ p:last-child{margin-bottom:0}
     </div>
   </section>
 
+  <!-- Игровой процесс -->
+  <section class="section gameplay" id="gameplay">
+    <div class="wrap">
+      <p class="eyebrow"><b>I</b> Игровой процесс</p>
+      <h2 class="section-title">Как это играется</h2>
+      <div class="gp-grid">
+        <figure class="gp-item lead">
+          <figcaption class="gp-cap"><b>Авто-бой</b><span>Армия сражается сама — вы выбираете расстановку и момент для приказа.</span></figcaption>
+          <div class="gp-frame"><img src="assets/gameplay-battle.gif" width="640" height="360" loading="eager" alt="Игровой процесс: авто-бой"></div>
+        </figure>
+        <figure class="gp-item">
+          <figcaption class="gp-cap"><b>Награда</b><span>После победы выберите новую карту — колода растёт от боя к бою.</span></figcaption>
+          <div class="gp-frame"><img src="assets/gameplay-reward.gif" width="640" height="360" loading="lazy" alt="Игровой процесс: награда"></div>
+        </figure>
+        <figure class="gp-item">
+          <figcaption class="gp-cap"><b>Расстановка</b><span>Перед боем разместите пехоту, артиллерию и санитаров в зоне развёртывания.</span></figcaption>
+          <div class="gp-frame"><img src="assets/gameplay-placement.gif" width="640" height="360" loading="lazy" alt="Игровой процесс: расстановка"></div>
+        </figure>
+        <figure class="gp-item">
+          <figcaption class="gp-cap"><b>Приказы</b><span>Тактические карты — артудар, атака — бьют по скоплению врага.</span></figcaption>
+          <div class="gp-frame"><img src="assets/gameplay-orders.gif" width="640" height="360" loading="lazy" alt="Игровой процесс: приказы"></div>
+        </figure>
+        <figure class="gp-item">
+          <figcaption class="gp-cap"><b>Кампания</b><span>Прокладывайте маршрут по карте: бои, события, снабжение.</span></figcaption>
+          <div class="gp-frame"><img src="assets/gameplay-map.gif" width="640" height="360" loading="lazy" alt="Игровой процесс: кампания"></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- II. Об игре -->
   <section class="section paper" id="about">
     <div class="wrap">
-      <p class="eyebrow"><b>I</b> Об игре</p>
+      <p class="eyebrow"><b>II</b> Об игре</p>
       <h2 class="section-title">Война, которую ведёте вы</h2>
       <div class="about-grid">
         <div class="about-text">
@@ -452,7 +500,7 @@ p:last-child{margin-bottom:0}
   <!-- III. Особенности -->
   <section class="section features" id="features">
     <div class="wrap">
-      <p class="eyebrow"><b>II</b> Ключевые особенности</p>
+      <p class="eyebrow"><b>III</b> Ключевые особенности</p>
       <h2 class="section-title">Штаб, карта и приказ</h2>
       <p class="features-lead">Вы не управляете каждым солдатом — вы командуете армией. Решения принимаются до боя и в его переломные моменты.</p>
 
@@ -521,7 +569,7 @@ p:last-child{margin-bottom:0}
   <!-- IV. Галерея -->
   <section class="section paper" id="gallery">
     <div class="wrap">
-      <p class="eyebrow"><b>III</b> Скриншоты и арт</p>
+      <p class="eyebrow"><b>IV</b> Скриншоты и арт</p>
       <h2 class="section-title">Галерея</h2>
       <ul class="gallery-grid">
         <li class="wide"><button class="g-item" type="button" data-full="assets/hero-field-camp.jpg" data-caption="Полевой лагерь у походной кухни"><img src="assets/hero-field-camp.jpg" loading="lazy" alt="Полевой лагерь русской армии у походной кухни"><span class="g-cap">Полевой лагерь</span></button></li>
@@ -542,7 +590,7 @@ p:last-child{margin-bottom:0}
   <section class="section support" id="support" aria-labelledby="support-title">
     <div class="wrap">
       <div class="support-card">
-        <p class="eyebrow"><b>IV</b> <span id="support-title">Поддержка проекта</span></p>
+        <p class="eyebrow"><b>V</b> <span id="support-title">Поддержка проекта</span></p>
         <div class="support-logos">
           <figure class="support-logo">
             <img src="assets/fasie-logo.svg" alt="Логотип Фонда содействия инновациям">
