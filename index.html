@@ -21,6 +21,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://k-kondyukov.github.io/imperor-glory-fatherland/assets/og-image.jpg">
 
+<link rel="icon" href="assets/icons/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Oswald:wght@400;500;600&family=PT+Mono&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -495,6 +501,200 @@ figure{margin:0}
   .lb-img{max-height:calc(100svh - 210px);border-width:5px}
 }
 
+/* ================= УСЛОВНЫЕ ОБОЗНАЧЕНИЯ: узлы карты ================= */
+.node-key{
+  position:relative;z-index:6;margin-top:34px;padding:15px clamp(10px,1.6vw,18px) 12px;
+  background:rgba(247,240,222,.5);
+  box-shadow:inset 0 0 0 1px rgba(74,58,34,.45),inset 0 0 0 4px rgba(247,240,222,.5),inset 0 0 0 5px rgba(74,58,34,.26);
+}
+.nk-title{font:600 12.5px/1 var(--f-label);letter-spacing:.28em;text-transform:uppercase;color:var(--red-dark);text-align:center;margin:0 0 12px;display:flex;align-items:center;gap:12px}
+.nk-title::before,.nk-title::after{content:"";flex:1;height:1px;background:rgba(42,38,32,.45)}
+.nk-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px 4px}
+.nk-item{display:flex;justify-content:center;min-width:0}
+.nk-btn{display:flex;flex-direction:column;align-items:center;gap:7px;width:100%;padding:5px 2px 3px;border:0;background:none;color:inherit;font:inherit}
+.nk-btn img{height:clamp(50px,7vw,60px);width:auto;filter:drop-shadow(0 3px 3px rgba(60,40,15,.3));transition:transform .3s cubic-bezier(.3,1.5,.5,1),filter .3s}
+.nk-btn:hover img,.nk-btn:focus-visible img,.nk-btn.is-on img{transform:translateY(-4px) scale(1.04);filter:drop-shadow(0 8px 6px rgba(60,40,15,.35))}
+.nk-name{font:500 11px/1.2 var(--f-label);letter-spacing:.05em;text-transform:uppercase;color:#33240f;text-align:center;text-wrap:balance}
+.nk-btn.is-on .nk-name{color:var(--red)}
+.nk-tip{
+  position:absolute;left:0;top:0;z-index:10;width:min(290px,calc(100vw - 24px));padding:14px 17px 15px;
+  background:#f4ecd8 url("assets/ui/parchment-tile.webp") 0 0/460px;color:var(--ink);text-align:left;
+  box-shadow:inset 0 0 0 1px rgba(74,58,34,.5),inset 0 0 0 4px #f4ecd8,inset 0 0 0 5px rgba(125,31,26,.32),0 14px 26px rgba(40,26,10,.34),0 2px 4px rgba(40,26,10,.22);
+  font:400 14.5px/1.45 var(--f-body);pointer-events:none;
+  visibility:hidden;opacity:0;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility 0s .18s;
+}
+.nk-tip.below{transform:translateY(-6px)}
+.nk-tip.is-open{visibility:visible;opacity:1;transform:none;transition:opacity .18s,transform .18s,visibility 0s}
+.nk-tip b{display:block;font:700 21px/1.1 var(--f-display);color:var(--green-900);margin-bottom:5px}
+.nk-tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-6px;width:12px;height:12px;margin-left:-6px;background:#f4ecd8;box-shadow:1px 1px 0 rgba(74,58,34,.5);transform:rotate(45deg)}
+.nk-tip.below::after{bottom:auto;top:-6px;box-shadow:-1px -1px 0 rgba(74,58,34,.5)}
+@media (min-width:981px){.nk-list{column-gap:0}.nk-btn{padding-inline:0}.nk-name{letter-spacing:.02em;white-space:nowrap}}
+@media (min-width:981px) and (max-width:1199px){.nk-name{font-size:10.5px;letter-spacing:0}}
+@media (max-width:520px){
+  .nk-list{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:12px}
+  .nk-btn img{height:54px}
+}
+
+/* ================= КАТАЛОГ ЮНИТОВ ================= */
+.units{border-bottom:3px double rgba(201,180,138,.5)}
+.wood .sh-lead{color:rgba(243,234,214,.86)}
+.u-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(22px,2.6vw,36px) clamp(14px,2vw,28px)}
+.u-item{display:grid;min-width:0}
+.u-card{position:relative;display:grid;min-width:0;perspective:1600px;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45))}
+.u-inner{position:relative;display:grid;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.3,.7,.25,1)}
+.u-face{grid-area:1 / 1;position:relative;min-width:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.u-card.is-flipped .u-inner{transform:rotateY(180deg)}
+@media (hover:hover) and (pointer:fine){
+  .u-card:not(.hover-off):hover .u-inner{transform:rotateY(180deg)}
+}
+.u-flip{position:absolute;inset:0;z-index:5;width:100%;height:100%;margin:0;padding:0;border:0;background:transparent;color:inherit}
+/* лицо: карточка на зелёном сукне */
+.u-front{
+  --fp:clamp(10px,1.2vw,16px);
+  display:flex;flex-direction:column;align-items:center;
+  padding:clamp(18px,1.8vw,24px) var(--fp) clamp(14px,1.4vw,18px);color:var(--cream);
+  background-color:var(--green-900);
+  background-image:radial-gradient(ellipse 90% 55% at 50% 40%,rgba(76,98,62,.55),transparent 75%),radial-gradient(ellipse 120% 100% at 50% 50%,transparent 55%,rgba(0,0,0,.42) 100%),url("assets/ui/parchment-tile.webp");
+  background-size:100% 100%,100% 100%,460px 460px;background-blend-mode:normal,normal,multiply;
+  box-shadow:inset 0 0 0 1px rgba(201,180,138,.6);
+}
+.u-front::before{content:"";position:absolute;inset:5px;border:1px solid rgba(226,195,122,.26);pointer-events:none}
+.u-badge{position:absolute;top:11px;left:11px;z-index:4;background:#efe4c8;color:var(--red);border:1px solid rgba(125,31,26,.6);font:500 10.5px/1 var(--f-label);letter-spacing:.14em;text-transform:uppercase;padding:5px 7px 4px;transform:rotate(-4deg);box-shadow:0 2px 4px rgba(0,0,0,.4)}
+.u-card{--turn:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M16.2 11A6.3 6.3 0 1 1 14 5.3' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M15.6 1.8v4.3h-4.3' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.u-turn,.u-back::after{position:absolute;top:11px;right:11px;z-index:4;width:17px;height:17px;background:var(--brass-hi);opacity:.62;
+  -webkit-mask:var(--turn) center/contain no-repeat;mask:var(--turn) center/contain no-repeat}
+.u-back::after{content:"";background:var(--red);opacity:.5;top:12px;right:12px}
+.u-front .oval{display:block;width:94%;max-width:246px;margin:auto auto 0;flex:none}
+.u-name{
+  position:relative;z-index:4;display:flex;align-items:center;justify-content:center;flex:none;
+  width:calc(100% + 2 * var(--fp) + 12px);margin:-18px calc(-1 * var(--fp) - 6px) 0;min-height:2.95em;
+  padding:.36em 16% .74em;background:url("assets/ui/ribbon-red.webp") center/100% 100% no-repeat;
+  color:#f7efdc;font:700 clamp(17px,1.6vw,20.5px)/1.02 var(--f-display);text-align:center;text-wrap:balance;letter-spacing:.01em;
+  text-shadow:0 1px 0 rgba(60,8,6,.85);filter:drop-shadow(0 5px 6px rgba(0,0,0,.45));
+}
+.u-rar{margin-top:10px;font:500 11px/1 var(--f-label);letter-spacing:.2em;text-transform:uppercase;color:var(--sand)}
+.u-ab{margin:9px 0 auto;padding-bottom:18px;font:italic 600 clamp(15.5px,1.35vw,17.5px)/1.18 var(--f-display);color:var(--sand-lt);text-align:center;text-wrap:balance;opacity:.92}
+.u-rar::before{letter-spacing:.14em;margin-right:.5em;color:var(--brass-hi)}
+.u-rar.r1::before{content:"◆"}
+.u-rar.r2::before{content:"◆◆"}
+.u-rar.r3::before{content:"◆◆◆"}
+.u-rar.r2,.u-rar.r3{color:var(--brass-hi)}
+.u-mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 4px;width:100%;padding-top:13px;position:relative}
+.u-mini::before{content:"";position:absolute;left:8%;right:8%;top:0;border-top:1px dashed rgba(201,180,138,.35)}
+.u-mini span{display:flex;align-items:center;justify-content:center;gap:5px;font:400 13.5px/1 var(--f-mono);color:var(--cream);white-space:nowrap}
+.u-mini img{width:18px;height:18px;flex:none}
+/* оборот: пергаментный лист */
+.u-back{
+  transform:rotateY(180deg);display:flex;flex-direction:column;gap:9px;
+  padding:clamp(16px,1.6vw,22px) clamp(14px,1.4vw,20px) clamp(14px,1.4vw,18px);color:var(--ink);
+  background:#efe4c8 url("assets/ui/parchment-tile.webp") 0 0/460px;
+  box-shadow:inset 0 0 0 1px rgba(74,58,34,.5),inset 0 0 0 5px #efe4c8,inset 0 0 0 6px rgba(125,31,26,.3);
+}
+.u-title{font-size:clamp(21px,1.9vw,25px);font-weight:700;color:var(--green-900);line-height:1.02;text-wrap:balance;padding-right:18px}
+.u-meta{display:flex;gap:16px;margin:0;padding:6px 0 5px;border-top:1px solid rgba(42,38,32,.25);border-bottom:1px solid rgba(42,38,32,.25)}
+.u-meta div{min-width:0}
+.u-meta dt{font:500 9.5px/1.25 var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:#7a6446}
+.u-meta dd{margin:0;font:700 14px/1.25 var(--f-body);color:var(--red)}
+.u-role{margin:0;font-size:14px;line-height:1.42;color:var(--ink)}
+.u-abil{margin:0;font-size:13.5px;line-height:1.42;color:var(--ink-soft);padding:6px 9px 7px;background:rgba(125,31,26,.06);border-left:2px solid rgba(125,31,26,.55)}
+.u-k{display:block;font:500 9.5px/1.3 var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:2px}
+.u-abil b{color:var(--green-900)}
+.u-name .nw,.u-title .nw{white-space:nowrap}
+.u-name.is-long{padding-inline:9%;letter-spacing:0;white-space:nowrap}
+.u-name.is-long > span{font-size:.9em}
+.si{display:inline-block;width:1.25em;height:1.25em;vertical-align:-.3em;margin:0 .1em}
+.u-stats{width:100%;border-collapse:collapse;margin-top:auto}
+.u-stats thead th{font:500 9.5px/1 var(--f-label);letter-spacing:.12em;text-transform:uppercase;color:#7a6446;text-align:right;padding:0 0 4px 6px;white-space:nowrap}
+.u-stats tbody th{position:relative;text-align:left;font:400 12.5px/1.2 var(--f-label);letter-spacing:.02em;color:#33240f;padding:4px 0 4px 22px}
+.u-stats tbody th img{position:absolute;left:0;top:50%;width:16px;height:16px;margin-top:-8px}
+.u-stats td{text-align:right;font:400 13px/1.2 var(--f-mono);padding:4px 0 4px 6px;white-space:nowrap;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.u-stats td+td{font-weight:700;color:var(--green-900)}
+.u-stats tbody tr{border-top:1px dotted rgba(42,38,32,.35)}
+.arr{color:var(--red);opacity:.75;margin-right:4px;font:400 12px/1 var(--f-body)}
+.u-stats .n3{display:inline-block;min-width:3ch;text-align:right}
+.u-note{max-width:64ch;margin:clamp(30px,3.4vw,44px) auto 0;text-align:center;font:400 13.5px/1.55 var(--f-mono);color:rgba(243,234,214,.74);text-wrap:balance}
+@media (min-width:1000px){.u-grid{grid-auto-rows:1fr}}
+@media (max-width:999px){
+  .u-grid{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:20px}
+  .u-name{width:calc(100% + 2 * var(--fp) + 6px);margin-inline:calc(-1 * var(--fp) - 3px)}
+}
+@media (max-width:639px){
+  .u-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px}
+  .u-front{--fp:8px;padding-top:16px;padding-bottom:12px}
+  .u-front .oval{width:96%}
+  .u-badge{font-size:9px;letter-spacing:.1em;top:7px;left:7px;padding:4px 5px 3px}
+  .u-turn{top:8px;right:8px;width:14px;height:14px}
+  .u-back::after{top:9px;right:9px;width:14px;height:14px}
+  .u-name{font-size:15.5px;padding-inline:12%;margin-top:-12px;width:calc(100% + 2 * var(--fp) + 4px);margin-inline:calc(-1 * var(--fp) - 2px)}
+  .u-name.is-long{padding-inline:6%}
+  .u-ab{font-size:14.5px;padding-bottom:12px}
+  .u-rar{font-size:9.5px;letter-spacing:.14em}
+  .u-mini{gap:7px 2px}
+  .u-mini span{font-size:11.5px;gap:3px}
+  .u-mini img{width:14px;height:14px}
+  .u-back{padding:14px 10px 12px;gap:7px}
+  .u-title{font-size:18.5px}
+  .u-meta{gap:2px 10px;flex-wrap:wrap}
+  .u-meta dt{font-size:8.5px;letter-spacing:.1em}
+  .u-meta dd{font-size:12.5px}
+  .u-role,.u-abil{font-size:12.5px;line-height:1.38}
+  .u-abil{padding:5px 6px 6px}
+  .u-stats thead th{font-size:8.5px;letter-spacing:.06em;padding-left:4px}
+  .u-stats tbody th{font-size:11px;letter-spacing:0;padding:3px 0 3px 17px}
+  .u-stats tbody th img{width:13px;height:13px;margin-top:-6.5px}
+  .u-stats td{font-size:11.5px;padding:3px 0 3px 4px}
+  .arr{font-size:9.5px;margin-right:2px}
+  .u-note{font-size:12.5px}
+}
+@media (max-width:479px){
+  /* узкая колонка: название способности есть на лице карточки, её действие — в «роли»; полный текст остаётся для экранных чтецов */
+  .u-abil{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+}
+@media (max-width:420px){
+  .u-title.is-long{font-size:16px}
+  .u-meta{gap:2px 6px;justify-content:space-between}
+  .u-meta dt{letter-spacing:.06em}
+  .u-meta dd{font-size:11.5px}
+}
+
+/* ================= ШТАБНЫЕ ПАСХАЛКИ ================= */
+/* компас: пять щелчков */
+.compass{z-index:1;transform-origin:50% 50%}
+.compass.spin{animation:compassSpin 1.5s cubic-bezier(.3,.1,.2,1)}
+@keyframes compassSpin{to{transform:rotate(360deg)}}
+/* булавки на карте кампании */
+.map-pins{position:absolute;left:12px;right:12px;top:12px;aspect-ratio:20/9;pointer-events:none;z-index:1}
+.map-pin{position:absolute;width:28px;height:31px;margin:-30px 0 0 -2px;padding:0;border:0;pointer-events:auto;
+  background:url("assets/ui/pin-red.webp") center/contain no-repeat;filter:drop-shadow(2px 4px 2px rgba(0,0,0,.42));animation:pinDrop .3s cubic-bezier(.3,1.5,.5,1)}
+.map-pin:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@keyframes pinDrop{from{transform:translateY(-18px);opacity:0}}
+/* наступление: красный карандаш поверх страницы */
+.offensive{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:70;pointer-events:none;filter:drop-shadow(0 0 2px rgba(243,234,214,.75));transition:opacity .7s}
+.offensive.fade{opacity:0}
+.offensive path{fill:none;stroke:var(--pencil);stroke-linecap:round;stroke-linejoin:round}
+.offensive .ln{stroke-width:4;opacity:.9;stroke-dasharray:1;stroke-dashoffset:1;animation:offDraw 1.1s cubic-bezier(.5,.1,.3,1) var(--d) forwards}
+.offensive .ln2{stroke-width:1.3;opacity:.55;stroke-dasharray:1;stroke-dashoffset:1;animation:offDraw 1.1s cubic-bezier(.5,.1,.3,1) calc(var(--d) + .08s) forwards}
+.offensive .hd{stroke-width:4;opacity:0;animation:offHead .2s ease-out calc(var(--d) + 1.05s) forwards}
+@keyframes offDraw{to{stroke-dashoffset:0}}
+@keyframes offHead{to{opacity:.9}}
+.route.redraw{animation:routeDraw 1.6s cubic-bezier(.4,.1,.2,1)}
+@keyframes routeDraw{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+/* депеша */
+.dispatch{
+  position:fixed;left:50%;bottom:clamp(16px,3vh,28px);z-index:90;width:max-content;max-width:calc(100vw - 32px);
+  display:flex;align-items:center;gap:14px;padding:13px 20px 13px 15px;
+  background:#f1e8d1 url("assets/ui/parchment-tile.webp") 0 0/460px;color:var(--ink);
+  box-shadow:inset 0 0 0 1px rgba(74,58,34,.5),inset 0 0 0 4px #f1e8d1,inset 0 0 0 5px rgba(74,58,34,.25),0 16px 34px rgba(0,0,0,.5),0 3px 6px rgba(0,0,0,.3);
+  font:400 15px/1.4 var(--f-mono);
+  transform:translate(-50%,18px);opacity:0;visibility:hidden;transition:opacity .3s,transform .3s,visibility 0s .3s;
+}
+.dispatch.is-on{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .3s,transform .3s,visibility 0s}
+.d-stamp{flex:none;font:600 11px/1 var(--f-label);letter-spacing:.18em;text-transform:uppercase;color:var(--red);border:1.5px solid rgba(125,31,26,.7);padding:6px 7px 5px;transform:rotate(-6deg)}
+.d-text{position:relative;min-width:0}
+.d-full{visibility:hidden}
+.d-typed{position:absolute;inset:0}
+@media (max-width:480px){.dispatch{font-size:13.5px;gap:10px;padding:11px 14px 11px 11px}.d-stamp{font-size:9.5px;letter-spacing:.12em}}
+
 /* ================= ПОДДЕРЖКА ================= */
 .support{padding-bottom:clamp(80px,9vw,120px)}
 .support-card{position:relative;max-width:1080px;margin:0 auto;text-align:center}
@@ -655,6 +855,34 @@ h2.sh-label{font:inherit}
   .rv-on .rv{opacity:1!important;translate:none!important}
   .rv-on .route{clip-path:none!important}
   .hero-bg{transform:none!important}
+  /* каталог: вместо поворота — растворение */
+  .u-inner{transform:none!important}
+  .u-face{-webkit-backface-visibility:visible;backface-visibility:visible;transition:opacity .3s ease!important}
+  .u-back{transform:none;opacity:0}
+  .u-card.is-flipped .u-back{opacity:1}
+  .u-card.is-flipped .u-front{opacity:0}
+  .offensive{display:none}
+}
+@media (prefers-reduced-motion:reduce) and (hover:hover) and (pointer:fine){
+  .u-card:not(.hover-off):hover .u-back{opacity:1}
+  .u-card:not(.hover-off):hover .u-front{opacity:0}
+}
+
+/* Курсор-булавка. Блок стоит В КОНЦЕ стиля, чтобы перебить .g-item{cursor:zoom-in} и .burger/.lb-btn{cursor:pointer} */
+@media (hover:hover) and (pointer:fine){
+  html{
+    cursor:url("assets/icons/cursor-pin.png") 2 29, auto;
+    cursor:-webkit-image-set(url("assets/icons/cursor-pin.png") 1x, url("assets/icons/cursor-pin-2x.png") 2x) 2 29, auto;
+    cursor:image-set(url("assets/icons/cursor-pin.png") 1x, url("assets/icons/cursor-pin-2x.png") 2x) 2 29, auto;
+  }
+  a[href], button:not(:disabled), [role="button"], summary, label[for], [tabindex="0"], .g-item, .burger{
+    cursor:url("assets/icons/cursor-pin-link.png") 7 25, pointer;
+    cursor:-webkit-image-set(url("assets/icons/cursor-pin-link.png") 1x, url("assets/icons/cursor-pin-link-2x.png") 2x) 7 25, pointer;
+    cursor:image-set(url("assets/icons/cursor-pin-link.png") 1x, url("assets/icons/cursor-pin-link-2x.png") 2x) 7 25, pointer;
+  }
+  /* лайтбокс оставляет системные курсоры */
+  .lightbox, .lightbox *{cursor:auto}
+  .lightbox .lb-btn{cursor:pointer}
 }
 </style>
 </head>
@@ -679,6 +907,7 @@ h2.sh-label{font:inherit}
       <a href="#about">Об игре</a>
       <a href="#features">Особенности</a>
       <a href="#gallery">Галерея</a>
+      <a href="#units">Юниты</a>
       <a href="#support">Поддержка</a>
       <a href="#contacts">Контакты</a>
     </nav>
@@ -772,6 +1001,35 @@ h2.sh-label{font:inherit}
             <img src="assets/campaign-map.jpg" width="1600" height="900" loading="lazy" alt="Карта кампании: рельеф, леса, реки и озёра театра военных действий">
             <figcaption>Карта кампании — здесь игрок прокладывает маршрут армии.</figcaption>
           </figure>
+          <div class="node-key" role="group" aria-labelledby="nk-title">
+            <p class="nk-title" id="nk-title">Условные обозначения</p>
+            <ul class="nk-list">
+              <li class="nk-item">
+                <button class="nk-btn" type="button" aria-describedby="nk-fight"><img src="assets/ui/shield-elite.webp" width="125" height="160" alt="" loading="lazy"><span class="nk-name">Бой</span></button>
+                <span class="nk-tip" role="tooltip" id="nk-fight"><b>Бой</b> <span>Обычное сражение: расставьте отряды в зоне развёртывания и начните бой; в бою можно применять карты приказов. За победу — золото и одна карта на выбор из предложенных (до трёх).</span></span>
+              </li>
+              <li class="nk-item">
+                <button class="nk-btn" type="button" aria-describedby="nk-special"><img src="assets/ui/shield-battle.webp" width="133" height="160" alt="" loading="lazy"><span class="nk-name">Особый бой</span></button>
+                <span class="nk-tip" role="tooltip" id="nk-special"><b>Особый бой</b> <span>Усиленное сражение: врагов больше, чем в обычном бою, и золота за победу тоже больше.</span></span>
+              </li>
+              <li class="nk-item">
+                <button class="nk-btn" type="button" aria-describedby="nk-arsenal"><img src="assets/ui/shield-arsenal.webp" width="119" height="160" alt="" loading="lazy"><span class="nk-name">Оружейная</span></button>
+                <span class="nk-tip" role="tooltip" id="nk-arsenal"><b>Оружейная</b> <span>Вам предлагают до трёх ваших карт ниже 3-го уровня: выберите одну и повысьте её уровень на единицу. Подборку можно обновить, а улучшить ещё одну карту — за золото.</span></span>
+              </li>
+              <li class="nk-item">
+                <button class="nk-btn" type="button" aria-describedby="nk-shop"><img src="assets/ui/shield-shop.webp" width="119" height="160" alt="" loading="lazy"><span class="nk-name">Магазин</span></button>
+                <span class="nk-tip" role="tooltip" id="nk-shop"><b>Магазин</b> <span>Покупайте карты юнитов и приказов за золото и продавайте ненужные. Ассортимент можно обновить за золото.</span></span>
+              </li>
+              <li class="nk-item">
+                <button class="nk-btn" type="button" aria-describedby="nk-event"><img src="assets/ui/shield-event-game.webp" width="119" height="160" alt="" loading="lazy"><span class="nk-name">Событие</span></button>
+                <span class="nk-tip" role="tooltip" id="nk-event"><b>Событие</b> <span>Происшествие с выбором: прочитайте историю и выберите вариант действий. Исход может дать или отнять золото, карты или уровни карт.</span></span>
+              </li>
+              <li class="nk-item">
+                <button class="nk-btn" type="button" aria-describedby="nk-boss"><img src="assets/ui/shield-boss.webp" width="135" height="160" alt="" loading="lazy"><span class="nk-name">Бой с боссом</span></button>
+                <span class="nk-tip" role="tooltip" id="nk-boss"><b>Бой с боссом</b> <span>Самое крупное сражение акта — 25 вражеских юнитов; этот узел всегда стоит в конце маршрута. Золота за победу — больше всего.</span></span>
+              </li>
+            </ul>
+          </div>
           <div class="legend">
             <p class="legend-title">Сведения</p>
             <dl class="facts">
@@ -798,15 +1056,15 @@ h2.sh-label{font:inherit}
         <p>Кампании ведут исторические личности — каждый со своим взглядом на войну и своим штабом.</p>
         <div class="commander-row">
           <figure class="commander rv">
-            <div class="c-sheet"><div class="c-box"><img src="assets/commander-nicholas-ii.png" width="900" height="1084" loading="lazy" alt="Портрет императора Николая II в полевой форме"></div></div>
+            <div class="c-sheet"><div class="c-box"><img src="assets/commander-nicholas-ii.webp" width="900" height="1084" loading="lazy" alt="Портрет императора Николая II в полевой форме"></div></div>
             <figcaption><strong>Николай II</strong><span>Император Всероссийский</span></figcaption>
           </figure>
           <figure class="commander rv">
-            <div class="c-sheet"><div class="c-box"><img src="assets/commander-brusilov.png" width="900" height="879" loading="lazy" alt="Портрет генерала А. А. Брусилова"></div></div>
+            <div class="c-sheet"><div class="c-box"><img src="assets/commander-brusilov.webp" width="900" height="879" loading="lazy" alt="Портрет генерала А. А. Брусилова"></div></div>
             <figcaption><strong>А. А. Брусилов</strong><span>Генерал от кавалерии</span></figcaption>
           </figure>
           <figure class="commander rv">
-            <div class="c-sheet"><div class="c-box"><img src="assets/commander-alekseev.png" width="900" height="1066" loading="lazy" alt="Портрет генерала М. В. Алексеева"></div></div>
+            <div class="c-sheet"><div class="c-box"><img src="assets/commander-alekseev.webp" width="900" height="1066" loading="lazy" alt="Портрет генерала М. В. Алексеева"></div></div>
             <figcaption><strong>М. В. Алексеев</strong><span>Начальник штаба Ставки</span></figcaption>
           </figure>
         </div>
@@ -864,19 +1122,19 @@ h2.sh-label{font:inherit}
         <h3 class="sub-h"><span>Рода <em>войск</em></span></h3>
         <div class="branch-row">
           <figure class="branch rv">
-            <div class="oval"><img class="unit" src="assets/unit-infantry.png" width="453" height="536" loading="lazy" alt="Портрет пехотинца русской армии"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
+            <div class="oval"><img class="unit" src="assets/units/uni-000.webp" width="453" height="536" loading="lazy" alt="Портрет пехотинца русской армии"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
             <figcaption><strong>Пехота</strong><span>Основа любой армии</span></figcaption>
           </figure>
           <figure class="branch rv">
-            <div class="oval"><img class="unit" src="assets/unit-cavalry.png" width="453" height="536" loading="lazy" alt="Портрет казака в папахе"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
+            <div class="oval"><img class="unit" src="assets/units/uni-004.webp" width="453" height="536" loading="lazy" alt="Портрет казака в папахе"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
             <figcaption><strong>Кавалерия</strong><span>Стремительные удары</span></figcaption>
           </figure>
           <figure class="branch rv">
-            <div class="oval"><img class="unit" src="assets/unit-artillery.png" width="453" height="536" loading="lazy" alt="Полевое артиллерийское орудие"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
+            <div class="oval"><img class="unit" src="assets/units/uni-005.webp" width="453" height="536" loading="lazy" alt="Полевое артиллерийское орудие"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
             <figcaption><strong>Артиллерия</strong><span>Огонь на дальней дистанции</span></figcaption>
           </figure>
           <figure class="branch rv">
-            <div class="oval"><img class="unit" src="assets/unit-vehicle.png" width="453" height="536" loading="lazy" alt="Ранний бронированный танк"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
+            <div class="oval"><img class="unit" src="assets/units/uni-009.webp" width="453" height="536" loading="lazy" alt="Ранний бронированный танк"><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" alt="" loading="lazy"></div>
             <figcaption><strong>Техника</strong><span>Броня нового века</span></figcaption>
           </figure>
         </div>
@@ -896,19 +1154,359 @@ h2.sh-label{font:inherit}
       <ul class="gallery-grid">
         <li class="wide"><button class="g-item" type="button" data-full="assets/hero-field-camp.jpg" data-caption="Полевой лагерь у походной кухни"><span class="g-ph"><img src="assets/hero-field-camp.jpg" loading="lazy" alt="Полевой лагерь русской армии у походной кухни"></span><span class="g-cap">Полевой лагерь</span></button></li>
         <li class="wide"><button class="g-item" type="button" data-full="assets/campaign-map.jpg" data-caption="Карта кампании"><span class="g-ph"><img class="crop-map" src="assets/campaign-map.jpg" loading="lazy" alt="Карта кампании"></span><span class="g-cap">Карта кампании</span></button></li>
-        <li><button class="g-item contain" type="button" data-full="assets/commander-nicholas-ii.png" data-caption="Император Николай II"><span class="g-ph"><img src="assets/commander-nicholas-ii.png" loading="lazy" alt="Портрет Николая II"></span><span class="g-cap">Николай II</span></button></li>
-        <li><button class="g-item contain" type="button" data-full="assets/commander-brusilov.png" data-caption="Генерал А. А. Брусилов"><span class="g-ph"><img src="assets/commander-brusilov.png" loading="lazy" alt="Портрет генерала Брусилова"></span><span class="g-cap">Брусилов</span></button></li>
+        <li><button class="g-item contain" type="button" data-full="assets/commander-nicholas-ii.webp" data-caption="Император Николай II"><span class="g-ph"><img src="assets/commander-nicholas-ii.webp" loading="lazy" alt="Портрет Николая II"></span><span class="g-cap">Николай II</span></button></li>
+        <li><button class="g-item contain" type="button" data-full="assets/commander-brusilov.webp" data-caption="Генерал А. А. Брусилов"><span class="g-ph"><img src="assets/commander-brusilov.webp" loading="lazy" alt="Портрет генерала Брусилова"></span><span class="g-cap">Брусилов</span></button></li>
         <li><button class="g-item" type="button" data-full="assets/battle-map.jpg" data-caption="Тактическая карта поля боя"><span class="g-ph"><img class="crop-sides" src="assets/battle-map.jpg" loading="lazy" alt="Тактическая карта поля боя"></span><span class="g-cap">Поле боя</span></button></li>
         <li><button class="g-item" type="button" data-full="assets/order-attack.jpg" data-caption="Тактическая карта «В атаку»"><span class="g-ph"><img src="assets/order-attack.jpg" loading="lazy" alt="Арт тактической карты: атака"></span><span class="g-cap">Приказ: атака</span></button></li>
         <li><button class="g-item" type="button" data-full="assets/order-command.jpg" data-caption="Тактическая карта «Командный голос»"><span class="g-ph"><img src="assets/order-command.jpg" loading="lazy" alt="Арт тактической карты: офицер с рупором"></span><span class="g-cap">Приказ: команда</span></button></li>
-        <li><button class="g-item contain" type="button" data-full="assets/unit-grenadier.png" data-caption="Юнит: гренадер"><span class="g-ph"><img src="assets/unit-grenadier.png" loading="lazy" alt="Портрет гренадера в парадной форме"></span><span class="g-cap">Гренадер</span></button></li>
-        <li><button class="g-item contain" type="button" data-full="assets/unit-armored-car.png" data-caption="Юнит: бронеавтомобиль"><span class="g-ph"><img src="assets/unit-armored-car.png" loading="lazy" alt="Бронеавтомобиль"></span><span class="g-cap">Бронеавтомобиль</span></button></li>
-        <li><button class="g-item contain" type="button" data-full="assets/character-engineer.png" data-caption="Персонаж арсенала: инженер"><span class="g-ph"><img src="assets/character-engineer.png" loading="lazy" alt="Инженер в светлом пальто с чертежами"></span><span class="g-cap">Инженер</span></button></li>
+        <li><button class="g-item contain" type="button" data-full="assets/units/uni-003.webp" data-caption="Юнит: Гвардейский полк"><span class="g-ph"><img src="assets/units/uni-003.webp" loading="lazy" alt="Портрет солдата гвардейского полка в парадной форме"></span><span class="g-cap">Гвардейский полк</span></button></li>
+        <li><button class="g-item contain" type="button" data-full="assets/units/uni-010.webp" data-caption="Юнит: бронеавтомобиль"><span class="g-ph"><img src="assets/units/uni-010.webp" loading="lazy" alt="Бронеавтомобиль"></span><span class="g-cap">Бронеавтомобиль</span></button></li>
+        <li><button class="g-item contain" type="button" data-full="assets/character-engineer.webp" data-caption="Персонаж арсенала: инженер"><span class="g-ph"><img src="assets/character-engineer.webp" loading="lazy" alt="Инженер в светлом пальто с чертежами"></span><span class="g-cap">Инженер</span></button></li>
       </ul>
     </div>
   </section>
 
-  <!-- V. Поддержка Фонда -->
+  <!-- V. Каталог юнитов -->
+  <section class="section units wood" id="units" aria-labelledby="units-title">
+    <svg class="route rv" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M600 0 C550 34 360 24 330 72 S450 124 530 128 S612 162 600 200"/></svg>
+    <div class="wrap">
+      <div class="sh" data-n="V">
+        <p class="sh-label"><span class="ribbon">Состав армии</span></p>
+        <h2 class="sh-title" id="units-title">Каталог <em>юнитов</em></h2>
+        <img class="sh-div" src="assets/ui/divider-gold.webp" width="900" height="68" alt="" loading="lazy">
+        <p class="sh-lead">Двенадцать юнитов армии — от ополченцев до танка «Вездеход». Наведите курсор или нажмите на карточку: на обороте — род войск, роль, способность и характеристики.</p>
+      </div>
+      <ul class="u-grid">
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u000-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Пехота</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-000.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Ополченцы</span></span>
+                  <span class="u-rar r1">Обычный</span>
+                  <span class="u-ab">Штыковая атака</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">90</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">0</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">9</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">1</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">1</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">1</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u000-t">Ополченцы</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Пехота</dd></div><div><dt>Редкость</dt><dd>Обычный</dd></div></dl>
+                  <p class="u-role">Пехота ближнего боя: дальность 1, без брони; с шансом 20% штыковым ударом отталкивает врага.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Штыковая атака.</b> При атаке с 20% шансом наносит 15 <img class="si" src="assets/ui/stat-atk.webp" width="46" height="46" alt="атака"> и отталкивает врага.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>90</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">110</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>0</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>9</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">11</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Ополченцы</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u001-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Пехота</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-001.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Гренадеры</span></span>
+                  <span class="u-rar r2">Редкий</span>
+                  <span class="u-ab">Гранат</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">110</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">2</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">12</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">0,9</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">5</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">1</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u001-t">Гренадеры</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Пехота</dd></div><div><dt>Редкость</dt><dd>Редкий</dd></div></dl>
+                  <p class="u-role">Пехота с дальностью 5 и бронёй 2: бросает гранату по области и отталкивает врагов.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Гранат.</b> Бросает гранату по области, нанося 25 <img class="si" src="assets/ui/stat-atk.webp" width="46" height="46" alt="атака"> и отталкивая врагов.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>110</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">140</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>2</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">2</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>12</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">16</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>0,9</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,9</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Гренадеры</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u002-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Пехота</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-002.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Охотники</span></span>
+                  <span class="u-rar r2">Редкий</span>
+                  <span class="u-ab">Охота</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">80</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">2</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">10</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">1,1</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">15</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">0,9</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u002-t">Охотники</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Пехота</dd></div><div><dt>Редкость</dt><dd>Редкий</dd></div></dl>
+                  <p class="u-role">Пехота с самой большой среди пехоты дальностью (15) и небольшим здоровьем (80⁠–⁠110); прицельным выстрелом оглушает цель.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Охота.</b> Прицельный выстрел наносит 50 <img class="si" src="assets/ui/stat-atk.webp" width="46" height="46" alt="атака"> и оглушает цель на 1 секунду.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>80</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">110</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>2</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">2</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>10</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">14</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>1,1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1,1</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>15</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">15</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>0,9</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,9</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Охотники</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u003-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Пехота</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-003.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Гвардейский полк</span></span>
+                  <span class="u-rar r2">Редкий</span>
+                  <span class="u-ab">Несокрушимая стойкость</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">180</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">3</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">18</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">0,8</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">10</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">1,1</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u003-t">Гвардейский полк</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Пехота</dd></div><div><dt>Редкость</dt><dd>Редкий</dd></div></dl>
+                  <p class="u-role">Больше всех среди пехоты здоровья (180⁠–⁠240) и брони (3⁠–⁠5); при падении здоровья ниже 30% даёт неуязвимость и усиливает броню союзников на 5 секунд.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Несокрушимая стойкость.</b> При падении <img class="si" src="assets/ui/stat-hp.webp" width="46" height="46" alt="здоровье"> ниже 30% даёт неуязвимость и усиливает <img class="si" src="assets/ui/stat-arm.webp" width="46" height="46" alt="броня"> союзников на 5 сек.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>180</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">240</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>3</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>18</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">26</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>0,8</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,6</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>10</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">10</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>1,1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1,1</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Гвардейский полк</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u004-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Кавалерия</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-004.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Казаки</span></span>
+                  <span class="u-rar r1">Обычный</span>
+                  <span class="u-ab">Казачья лава</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">100</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">1</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">14</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">0,8</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">1</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">2,3</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u004-t">Казаки</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Кавалерия</dd></div><div><dt>Редкость</dt><dd>Обычный</dd></div></dl>
+                  <p class="u-role">Быстрая кавалерия ближнего боя (скорость 2,3): после убийства врага ещё на 3 секунды ускоряется на 20%.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Казачья лава.</b> После убийства врага увеличивает <img class="si" src="assets/ui/stat-ms.webp" width="46" height="46" alt="скорость передвижения"> на 20% на 3 сек.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>100</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">120</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>14</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">16</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>0,8</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,8</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>2,3</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">2,3</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Казаки</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u005-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Артиллерия</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-005.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Полевая пушка</span></span>
+                  <span class="u-rar r1">Обычный</span>
+                  <span class="u-ab">Картечный залп</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">70</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">0</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">35</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">2,5</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">35</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">0,5</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u005-t">Полевая пушка</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Артиллерия</dd></div><div><dt>Редкость</dt><dd>Обычный</dd></div></dl>
+                  <p class="u-role">Орудие с дальностью 35 и сильным (атака 35⁠–⁠39), но редким выстрелом; меньше всех здоровья и нет брони; подошедших на 3 м врагов отбрасывает картечью.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Картечный залп.</b> При приближении врага на 3 м стреляет картечью, нанося 45 <img class="si" src="assets/ui/stat-atk.webp" width="46" height="46" alt="атака"> и отталкивая цель.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>70</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">90</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>0</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>35</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">39</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>2,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">2,5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>35</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">35</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>0,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,5</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Полевая пушка</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u006-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Артиллерия</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-006.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Гаубица Шнейдера</span></span>
+                  <span class="u-rar r2">Редкий</span>
+                  <span class="u-ab">Фугасный снаряд</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">90</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">1</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">65</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">3</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">40</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">0,5</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u006-t">Гаубица Шнейдера</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Артиллерия</dd></div><div><dt>Редкость</dt><dd>Редкий</dd></div></dl>
+                  <p class="u-role">Самая дальнобойная (40) и самая сильная по атаке (65⁠–⁠75) единица, стреляет реже всех; фугасом оглушает врагов по области.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Фугасный снаряд.</b> Выстрел наносит 40<img class="si" src="assets/ui/stat-atk.webp" width="46" height="46" alt="атака">по области и оглушает врагов на 2 сек.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>90</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">120</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>65</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">75</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>3</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">3</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>40</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">40</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>0,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,5</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Гаубица Шнейдера</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u007-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Кавалерия</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-007.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Гусары</span></span>
+                  <span class="u-rar r2">Редкий</span>
+                  <span class="u-ab">Стремительная атака</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">145</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">3</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">17</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">0,8</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">1</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">2,5</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u007-t">Гусары</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Кавалерия</dd></div><div><dt>Редкость</dt><dd>Редкий</dd></div></dl>
+                  <p class="u-role">Самая быстрая кавалерия (скорость 2,5) с бронёй 3: при появлении на поле боя на 10 секунд ускоряет атаку и передвижение ближайшей кавалерии.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Стремительная атака.</b> При появлении на поле боя увеличивает <img class="si" src="assets/ui/stat-as.webp" width="46" height="46" alt="скорость атаки"> и <img class="si" src="assets/ui/stat-ms.webp" width="46" height="46" alt="скорость передвижения"> ближайшей кавалерии на 15% на 10 сек.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>145</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">185</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>3</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">3</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>17</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">21</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>0,8</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,8</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>2,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">2,5</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Гусары</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u008-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Техника</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-008.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>БА <span class="nw">«Руссо-Балт»</span></span></span>
+                  <span class="u-rar r1">Обычный</span>
+                  <span class="u-ab">Огонь на подавление</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">200</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">5</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">18</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">0,5</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">10</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">2</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u008-t">БА <span class="nw">«Руссо-Балт»</span></h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Техника</dd></div><div><dt>Редкость</dt><dd>Обычный</dd></div></dl>
+                  <p class="u-role">Техника с бронёй 5 и самой частой стрельбой среди всех юнитов; способность ещё ускоряет стрельбу ценой брони и скорости передвижения.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Огонь на подавление.</b> Обрушивает шквальный огонь, повышая свою <img class="si" src="assets/ui/stat-as.webp" width="46" height="46" alt="скорость атаки"> на 25%, теряя 5<img class="si" src="assets/ui/stat-arm.webp" width="46" height="46" alt="броня"> и 25% <img class="si" src="assets/ui/stat-ms.webp" width="46" height="46" alt="скорость передвижения">.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>200</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">240</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>18</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">22</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>0,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>10</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">10</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>2</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">2</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: БА «Руссо-Балт»</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u009-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Техника</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-009.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Танк <span class="nw">«Вездеход»</span></span></span>
+                  <span class="u-rar r3">Эпический</span>
+                  <span class="u-ab">Танковый прорыв</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">450</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">8</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">20</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">1,5</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">3</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">1</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u009-t">Танк <span class="nw">«Вездеход»</span></h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Техника</dd></div><div><dt>Редкость</dt><dd>Эпический</dd></div></dl>
+                  <p class="u-role">Единственный эпический юнит: больше всех здоровья (450⁠–⁠550) и брони (8⁠–⁠10), бьёт с короткой дистанции (3); в первые 10 секунд боя получает ещё 10 брони.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Танковый прорыв.</b> В первые 10 сек. боя получает 10 <img class="si" src="assets/ui/stat-arm.webp" width="46" height="46" alt="броня">.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>450</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">550</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>8</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">10</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>20</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">26</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>1,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1,5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>3</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">3</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Танк «Вездеход»</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u010-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Техника</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-010.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name is-long"><span>БА <span class="nw">«Гарфорд-Путилов»</span></span></span>
+                  <span class="u-rar r1">Обычный</span>
+                  <span class="u-ab">Самоходная артиллерия</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">250</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">4</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">25</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">0,8</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">13</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">1,5</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title is-long" id="u010-t">БА <span class="nw">«Гарфорд-Путилов»</span></h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Техника</dd></div><div><dt>Редкость</dt><dd>Обычный</dd></div></dl>
+                  <p class="u-role">Крепкая техника (здоровье 250⁠–⁠310, броня 4) с дальностью 13: выстрелом накрывает большую площадь.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Самоходная артиллерия.</b> Производит выстрел по большой площади, нанося 30 <img class="si" src="assets/ui/stat-atk.webp" width="46" height="46" alt="атака"> всем целям.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>250</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">310</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>4</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">4</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>25</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">31</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>0,8</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0,8</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>13</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">13</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>1,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1,5</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: БА «Гарфорд-Путилов»</span></button>
+            </article>
+          </li>
+          <li class="u-item rv">
+            <article class="u-card" aria-labelledby="u011-t">
+              <div class="u-inner">
+                <div class="u-face u-front" aria-hidden="true">
+                  <span class="u-badge">Пехота</span>
+                  <span class="u-turn"></span>
+                  <span class="oval"><img class="unit" src="assets/units/uni-011.webp" width="453" height="536" loading="lazy" alt=""><img class="frame" src="assets/ui/frame-oval-gold.webp" width="567" height="631" loading="lazy" alt=""></span>
+                  <span class="u-name"><span>Военный санитар</span></span>
+                  <span class="u-rar r1">Обычный</span>
+                  <span class="u-ab">Перевязка</span>
+                  <span class="u-mini"><span><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">85</span><span><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">0</span><span><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">4</span><span><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">1,5</span><span><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">5</span><span><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">1</span></span>
+                </div>
+                <div class="u-face u-back">
+                  <h3 class="u-title" id="u011-t">Военный санитар</h3>
+                  <dl class="u-meta"><div><dt>Род войск</dt><dd>Пехота</dd></div><div><dt>Редкость</dt><dd>Обычный</dd></div></dl>
+                  <p class="u-role">Юнит поддержки: самая слабая атака (4⁠–⁠6), зато раз в 10 секунд лечит союзника в радиусе 5 м на 35 здоровья.</p>
+                  <p class="u-abil"><span class="u-k">Способность</span> <b>Перевязка.</b> Раз в 10 сек. восстанавливает 35 <img class="si" src="assets/ui/stat-hp.webp" width="46" height="46" alt="здоровье"> случайному союзному юниту в радиусе 5 м.</p>
+                  <table class="u-stats">
+                    <caption class="visually-hidden">Характеристики: 1-й и 3-й уровень</caption>
+                    <thead><tr><th scope="col"><span class="visually-hidden">Характеристика</span></th><th scope="col">1 ур.</th><th scope="col">3 ур.</th></tr></thead>
+                    <tbody><tr><th scope="row"><img src="assets/ui/stat-hp.webp" width="46" height="46" alt="">Здоровье</th><td>85</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">105</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-arm.webp" width="46" height="46" alt="">Броня</th><td>0</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">0</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-atk.webp" width="46" height="46" alt="">Атака</th><td>4</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">6</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-as.webp" width="46" height="46" alt="">Скорость атаки</th><td>1,5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1,5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-rng.webp" width="46" height="46" alt="">Дальность</th><td>5</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">5</span></td></tr><tr><th scope="row"><img src="assets/ui/stat-ms.webp" width="46" height="46" alt="">Скорость передвижения</th><td>1</td><td><span class="arr" aria-hidden="true">→</span><span class="n3">1</span></td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="u-flip" type="button" aria-pressed="false"><span class="visually-hidden">Перевернуть карточку: Военный санитар</span></button>
+            </article>
+          </li>
+      </ul>
+      <p class="u-note">Характеристики даны для 1-го и 3-го уровня. Скорость атаки — пауза между атаками в секундах: чем меньше число, тем чаще атаки.</p>
+    </div>
+  </section>
+
+  <!-- VI. Поддержка Фонда -->
   <section class="section support dark contours" id="support" aria-labelledby="support-title">
     <div class="wrap">
       <div class="support-card rv">
@@ -937,7 +1535,7 @@ h2.sh-label{font:inherit}
   </section>
 </main>
 
-<!-- VI. Подвал -->
+<!-- VII. Подвал -->
 <footer class="footer wood" id="contacts">
   <img class="f-branch l" src="assets/ui/branch-berries.webp" width="282" height="292" alt="" loading="lazy">
   <img class="f-branch r" src="assets/ui/branch-berries.webp" width="282" height="292" alt="" loading="lazy">
@@ -977,6 +1575,10 @@ h2.sh-label{font:inherit}
     </div>
   </div>
 </footer>
+
+<!-- Депеша (всплывающее сообщение) -->
+<div class="dispatch" id="dispatch" aria-hidden="true"><span class="d-stamp">Депеша</span><span class="d-text"><span class="d-full"></span><span class="d-typed"></span></span></div>
+<p class="visually-hidden" id="dispatch-sr" aria-live="polite" aria-atomic="true"></p>
 
 <!-- Лайтбокс -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр изображения" hidden>
@@ -1133,6 +1735,224 @@ h2.sh-label{font:inherit}
     if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
     x0 = null;
   });
+
+  // Условные обозначения: подсказки узлов карты (наведение, фокус, касание)
+  var nkBtns = Array.prototype.slice.call(document.querySelectorAll('.nk-btn'));
+  var nkHover = null, nkFocus = null, nkPin = null;
+  function nkTip(b) { return document.getElementById(b.getAttribute('aria-describedby')); }
+  function nkPlace(b, tip) {
+    var key = b.closest('.node-key');
+    var vw = document.documentElement.clientWidth, m = 12;
+    var kr = key.getBoundingClientRect(), br = b.getBoundingClientRect();
+    var ir = b.querySelector('img').getBoundingClientRect();
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var cx = br.left + br.width / 2;
+    var left = Math.max(m, Math.min(cx - tw / 2, vw - m - tw));
+    var top = ir.top - th - 12;
+    var below = top < header.offsetHeight + 8;
+    if (below) top = br.bottom + 12;
+    tip.classList.toggle('below', below);
+    tip.style.left = Math.round(left - kr.left) + 'px';
+    tip.style.top = Math.round(top - kr.top) + 'px';
+    tip.style.setProperty('--ax', Math.round(Math.max(16, Math.min(tw - 16, cx - left))) + 'px');
+  }
+  function nkRender() {
+    var act = nkPin || nkHover || nkFocus;
+    nkBtns.forEach(function (b) {
+      var on = b === act, tip = nkTip(b);
+      if (on) nkPlace(b, tip);
+      tip.classList.toggle('is-open', on);
+      b.classList.toggle('is-on', on);
+    });
+  }
+  nkBtns.forEach(function (b) {
+    b.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { nkHover = b; nkRender(); } });
+    b.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && nkHover === b) { nkHover = null; nkRender(); } });
+    b.addEventListener('focus', function () { nkFocus = b; nkRender(); });
+    b.addEventListener('blur', function () { if (nkFocus === b) nkFocus = null; nkRender(); });
+    b.addEventListener('click', function () {
+      if (nkPin === b) { nkPin = null; nkFocus = null; nkHover = null; }
+      else nkPin = b;
+      nkRender();
+    });
+  });
+  if (nkBtns.length) {
+    document.addEventListener('pointerdown', function (e) {
+      if (nkPin && !e.target.closest('.nk-item')) { nkPin = null; nkRender(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && (nkPin || nkHover || nkFocus)) { nkPin = nkHover = nkFocus = null; nkRender(); }
+    });
+    var nkTick = false;
+    function nkReflow() {
+      if (nkTick || !(nkPin || nkHover || nkFocus)) return;
+      nkTick = true;
+      window.requestAnimationFrame(function () { nkTick = false; nkRender(); });
+    }
+    window.addEventListener('resize', nkReflow);
+    window.addEventListener('scroll', nkReflow, { passive: true });
+  }
+
+  // Каталог юнитов: переворот карточки
+  document.querySelectorAll('.u-flip').forEach(function (btn) {
+    var card = btn.closest('.u-card');
+    btn.addEventListener('click', function () {
+      var on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on));
+      card.classList.toggle('is-flipped', on);
+      // курсор ещё над карточкой: показываем лицо, пока мышь не уйдёт
+      card.classList.toggle('hover-off', !on);
+    });
+    card.addEventListener('mouseleave', function () { card.classList.remove('hover-off'); });
+  });
+
+  // ===== Штабные пасхалки =====
+  // Депеша: всплывающее сообщение с «печатью» текста
+  var dsp = document.getElementById('dispatch');
+  var dspSr = document.getElementById('dispatch-sr');
+  var dspHide = null, dspType = null;
+  function dispatch(text, stamp) {
+    if (!dsp) return;
+    clearTimeout(dspHide); clearInterval(dspType);
+    dsp.querySelector('.d-stamp').textContent = stamp || 'Депеша';
+    dsp.querySelector('.d-full').textContent = text;
+    var typed = dsp.querySelector('.d-typed');
+    typed.textContent = '';
+    dspSr.textContent = '';
+    setTimeout(function () { dspSr.textContent = text; }, 80);
+    dsp.classList.add('is-on');
+    if (reduce) typed.textContent = text;
+    else {
+      var i = 0;
+      dspType = setInterval(function () {
+        i += 1; typed.textContent = text.slice(0, i);
+        if (i >= text.length) clearInterval(dspType);
+      }, 32);
+    }
+    dspHide = setTimeout(function () { dsp.classList.remove('is-on'); }, 5600);
+  }
+
+  // Код Конами (↑ ↑ ↓ ↓ ← → ← → B A, в русской раскладке — И Ф): наступление по всему фронту
+  var KONAMI = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
+  var kPos = 0;
+  function drawOffensive() {
+    var old = document.querySelector('.offensive');
+    if (old) old.parentNode.removeChild(old);
+    var NS = 'http://www.w3.org/2000/svg';
+    var W = window.innerWidth, H = window.innerHeight;
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'offensive');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var n = W < 640 ? 2 : 3;
+    function f(v) { return v.toFixed(1); }
+    for (var i = 0; i < n; i++) {
+      var y = H * (n === 3 ? 0.3 + i * 0.2 : 0.36 + i * 0.26);
+      var amp = H * 0.07 * (i % 2 ? -1 : 1);
+      var x0 = W * 0.07, x1 = W * 0.9, y0 = y + amp * 0.3, y1 = y - amp * 0.4;
+      var c1x = x0 + (x1 - x0) * 0.35, c1y = y - amp * 1.4, c2x = x0 + (x1 - x0) * 0.7, c2y = y + amp;
+      var d = 'M' + f(x0) + ' ' + f(y0) + 'C' + f(c1x) + ' ' + f(c1y) + ' ' + f(c2x) + ' ' + f(c2y) + ' ' + f(x1) + ' ' + f(y1);
+      var d2 = 'M' + f(x0 + 2) + ' ' + f(y0 + 4) + 'C' + f(c1x + 3) + ' ' + f(c1y + 5) + ' ' + f(c2x - 2) + ' ' + f(c2y + 4) + ' ' + f(x1 - 4) + ' ' + f(y1 + 3);
+      var ang = Math.atan2(y1 - c2y, x1 - c2x), L = Math.max(16, Math.min(28, W * 0.05)), s = 0.5;
+      var hd = 'M' + f(x1 - L * Math.cos(ang - s)) + ' ' + f(y1 - L * Math.sin(ang - s)) + 'L' + f(x1) + ' ' + f(y1) +
+               'L' + f(x1 - L * Math.cos(ang + s)) + ' ' + f(y1 - L * Math.sin(ang + s));
+      var g = document.createElementNS(NS, 'g');
+      g.style.setProperty('--d', (i * 0.2) + 's');
+      [['ln', d], ['ln2', d2], ['hd', hd]].forEach(function (p) {
+        var path = document.createElementNS(NS, 'path');
+        path.setAttribute('class', p[0]);
+        path.setAttribute('d', p[1]);
+        if (p[0] !== 'hd') path.setAttribute('pathLength', '1');
+        g.appendChild(path);
+      });
+      svg.appendChild(g);
+    }
+    document.body.appendChild(svg);
+    setTimeout(function () { svg.classList.add('fade'); }, 2900);
+    setTimeout(function () { if (svg.parentNode) svg.parentNode.removeChild(svg); }, 3700);
+  }
+  function offensive() {
+    if (!reduce) {
+      document.querySelectorAll('.route').forEach(function (r) {
+        r.classList.remove('redraw');
+        void r.getBoundingClientRect();
+        r.classList.add('in', 'redraw');
+      });
+      drawOffensive();
+    }
+    dispatch('Приказ принят: наступление по всему фронту!', 'Депеша');
+  }
+  document.querySelectorAll('.route').forEach(function (r) {
+    r.addEventListener('animationend', function () { r.classList.remove('redraw'); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.target && e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
+    var k = (e.key || '').toLowerCase();
+    if (e.code === 'KeyB' || k === 'и') k = 'b';
+    else if (e.code === 'KeyA' || k === 'ф') k = 'a';
+    if (k === KONAMI[kPos]) {
+      kPos += 1;
+      if (kPos === KONAMI.length) { kPos = 0; offensive(); }
+    } else if (k === 'arrowup') kPos = kPos === 2 ? 2 : 1;
+    else kPos = 0;
+  });
+
+  // Компас героя: пять быстрых щелчков — оборот и справка о Ставке
+  var compass = document.querySelector('.compass');
+  var cClicks = [];
+  if (compass) {
+    compass.addEventListener('click', function () {
+      var t = Date.now();
+      cClicks = cClicks.filter(function (x) { return t - x < 1800; });
+      cClicks.push(t);
+      if (cClicks.length >= 5) {
+        cClicks = [];
+        if (!reduce) {
+          compass.classList.remove('spin');
+          void compass.getBoundingClientRect();
+          compass.classList.add('spin');
+        }
+        dispatch('Ставка Верховного главнокомандующего — Могилёв, 1915–1917', 'Справка');
+      }
+    });
+    compass.addEventListener('animationend', function () { compass.classList.remove('spin'); });
+  }
+
+  // Булавки на карте кампании: до пяти, только на время визита
+  var mapFig = document.querySelector('.map-photo');
+  var mapImg = mapFig && mapFig.querySelector('img');
+  if (mapImg) {
+    var pinLayer = document.createElement('span');
+    pinLayer.className = 'map-pins';
+    mapFig.appendChild(pinLayer);
+    var pins = [];
+    var dropPin = function (pin) {
+      var i = pins.indexOf(pin);
+      if (i > -1) pins.splice(i, 1);
+      if (pin.parentNode) pin.parentNode.removeChild(pin);
+    };
+    mapImg.addEventListener('click', function (e) {
+      var w = mapImg.clientWidth, h = mapImg.clientHeight;
+      if (!w || !h) return;
+      var x = Math.max(0, Math.min(1, e.offsetX / w)), y = Math.max(0, Math.min(1, e.offsetY / h));
+      var pin = document.createElement('button');
+      pin.type = 'button';
+      pin.className = 'map-pin';
+      pin.setAttribute('aria-label', 'Снять булавку');
+      pin.style.left = (x * 100).toFixed(2) + '%';
+      pin.style.top = (y * 100).toFixed(2) + '%';
+      pin.addEventListener('click', function (ev) { ev.stopPropagation(); dropPin(pin); });
+      pinLayer.appendChild(pin);
+      pins.push(pin);
+      if (pins.length > 5) dropPin(pins[0]);
+    });
+  }
+
+  // Для любопытных разработчиков
+  try {
+    console.log('%cШтаб на связи.%c Император: Слава Отечеству — ООО «АСГАРД ТЕХ»',
+      'font:700 16px Georgia,serif;color:#a3281f', 'font:600 14px Georgia,serif;color:#1f2a1f;background:#f3ead6;padding:2px 6px');
+  } catch (err) {}
 })();
 </script>
 </body>
