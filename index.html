@@ -152,7 +152,8 @@ figure{margin:0}
 /* ================= ШАПКА ================= */
 .header{
   position:fixed;inset:0 0 auto 0;z-index:50;height:var(--header-h);color:var(--cream);
-  background:linear-gradient(180deg,rgba(14,19,14,.72),rgba(14,19,14,0));
+  background:linear-gradient(180deg,rgba(10,14,10,.94) 0%,rgba(10,14,10,.82) 45%,rgba(10,14,10,.35) 80%,rgba(10,14,10,0) 100%);
+  text-shadow:0 1px 8px rgba(0,0,0,.55);
   transition:background-color .3s,box-shadow .3s;
 }
 .header::after{
@@ -268,7 +269,7 @@ figure{margin:0}
   background:
     radial-gradient(ellipse 52% 40% at 50% 74%,rgba(14,18,12,.62),transparent 72%),
     radial-gradient(ellipse 24% 13% at 50% 40%,rgba(14,18,12,.5),transparent 100%),
-    linear-gradient(180deg,rgba(14,19,14,.6) 0%,rgba(14,19,14,0) 17%,rgba(14,19,14,0) 42%,rgba(18,15,10,.42) 64%,rgba(20,14,10,.9) 100%),
+    linear-gradient(180deg,rgba(10,14,10,.88) 0%,rgba(12,16,12,.55) 9%,rgba(14,19,14,.18) 18%,rgba(14,19,14,0) 26%,rgba(14,19,14,0) 42%,rgba(18,15,10,.42) 64%,rgba(20,14,10,.9) 100%),
     radial-gradient(ellipse 130% 100% at 50% 40%,transparent 58%,rgba(8,10,8,.5) 100%);
 }
 /* рамка листа карты с координатной сеткой */
@@ -584,7 +585,7 @@ h2.sh-label{font:inherit}
   :root{--tear:18px}
   .hero{padding-bottom:calc(var(--tear) + 40px)}
   .hero-bg{background-position:27% 30%;inset:-2% 0 -6% 0}
-  .hero::before{background:linear-gradient(180deg,rgba(14,19,14,.55) 0%,rgba(14,19,14,0) 16%,rgba(14,19,14,0) 36%,rgba(18,14,10,.55) 56%,rgba(20,14,10,.9) 78%,rgba(20,14,10,.96) 100%)}
+  .hero::before{background:linear-gradient(180deg,rgba(10,14,10,.88) 0%,rgba(12,16,12,.5) 8%,rgba(14,19,14,.15) 15%,rgba(14,19,14,0) 22%,rgba(14,19,14,0) 36%,rgba(18,14,10,.55) 56%,rgba(20,14,10,.9) 78%,rgba(20,14,10,.96) 100%)}
   .hero-inner{padding-top:calc(var(--header-h) + 24px)}
   .hero-kicker{font-size:12px;letter-spacing:.08em;gap:10px}
   .hero-kicker::before,.hero-kicker::after{width:18px}
